@@ -17,6 +17,7 @@
     "moonpig": "^0.0.1-security",
     "morgan": "~1.6.1",
     "pg-promise": "^4.4.6",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "team-atf": "^0.0.1-security"
   }
 }
