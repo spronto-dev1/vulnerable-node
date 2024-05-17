@@ -8,7 +8,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var log4js = require("log4js");
-
+var _ = require("lodash");
 var init_db = require('./model/init_db');
 var login = require('./routes/login');
 var products = require('./routes/products');
@@ -34,7 +34,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-app.use(logger('combined', {stream: accessLogStream}));
+app.use(logger('combined', { stream: accessLogStream }));
 app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -56,7 +56,7 @@ app.use('', login);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -66,7 +66,7 @@ app.use(function(req, res, next) {
  * Debug functions and error handlers
  */
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -77,7 +77,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -90,6 +90,11 @@ app.use(function(err, req, res, next) {
  */
 logger4js.info("Building database")
 // logger.info(("Building database");
+
+_.defaultsDeep(app.locals, {
+  title: 'VNode',
+  description: 'VNode'
+},)
 
 init_db();
 
